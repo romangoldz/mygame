@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class Main extends ApplicationAdapter {
     ShapeRenderer shape;
     OrthographicCamera camera;
 
