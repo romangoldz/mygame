@@ -14,7 +14,7 @@ public class Main extends ApplicationAdapter {
   @Override
   public void create(){
     imageTexture = new Texture("images.png");
-    image = new Sprite(imagesTexture);
+    image = new Sprite(imageTexture);
     image.setPosition(100, 100);
     image.setSize (64, 64);
 
