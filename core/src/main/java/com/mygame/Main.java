@@ -7,12 +7,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Main extends ApplicationAdapter {
-  Texture images;
+  Texture imageTexture;
+  Sprite image;
   SpriteBatch batch;
   
   @Override
   public void create(){
-    images = new Texture("images.png");
+    imageTexture = new Texture("images.png");
+    image = new Sprite(imagesTexture);
+    image.setPosition(100, 100);
+    image.setSize (64, 64);
+
     batch = new SpriteBatch();
   }
 
@@ -22,13 +27,13 @@ public class Main extends ApplicationAdapter {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     
     batch.begin();
-    batch.draw(images, 300, 300);
+    image.draw(batch);
     batch.end();
   }
 
   @Override
   public void dispose() {
-    images.dispose();
+    image.dispose();
     batch.dispose();
   }
 }
