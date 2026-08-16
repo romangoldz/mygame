@@ -34,7 +34,7 @@ public class Main extends ApplicationAdapter {
 
   @Override
   public void dispose() {
-    image.dispose();
+    imageTexture.dispose();
     batch.dispose();
   }
 }
