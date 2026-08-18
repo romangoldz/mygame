@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
+import com badlogic.gdx.graphics.OrthographicCamera;
 
 public class Main extends ApplicationAdapter {
 
@@ -14,6 +15,7 @@ public class Main extends ApplicationAdapter {
     Sprite image;
     SpriteBatch batch;
     Rectangle button;
+    
 
     @Override
     public void create() {
@@ -21,18 +23,21 @@ public class Main extends ApplicationAdapter {
 
         image = new Sprite(imageTexture);
         image.setPosition(100, 100);
-        image.setSize(64, 64);
+        image.setSize(1250, 720);
 
         button = new Rectangle(300, 200, 200, 100);
 
         batch = new SpriteBatch();
+        camera= new OrthographicCamera();
+        camera.setToOrtho(false, 1250, 720);
     }
 
     @Override
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
         if (Gdx.input.isTouched()) {
