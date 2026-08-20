@@ -30,7 +30,6 @@ public class Main extends ApplicationAdapter {
     private ArrayList<Vector2> activeTouches = new ArrayList<>();
     private float initialZoom = 1f;
     private float initialPinchDistance = 0f;
-    private World world;
     
     @Override
     public void create() {
@@ -43,7 +42,6 @@ public class Main extends ApplicationAdapter {
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
         
         targetPos.set(playerPos);
-        World world = new World(new Vector2, (0, -10));
     }
     
     @Override
