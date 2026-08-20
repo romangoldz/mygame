@@ -65,8 +65,8 @@ public class Main extends ApplicationAdapter {
        
         float halfW = camera.viewportWidth / 2 * camera.zoom;
         float halfH = camera.viewportHeight / 2 * camera.zoom;
-        camera.position.x = MathUtils.clamp(camera.position.x, halfW, 2000 - halfW);
-        camera.position.y = MathUtils.clamp(camera.position.y, halfH, 2000 - halfH);
+        camera.position.x = MathUtils.clamp(camera.position.x, halfW, 1650- halfW);
+        camera.position.y = MathUtils.clamp(camera.position.y, halfH, 720 - halfH);
         
         camera.update();
         
