@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
 
-public class TouchGame extends ApplicationAdapter {
+public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture playerTexture;
     private OrthographicCamera camera;
