@@ -64,7 +64,8 @@ public class Main implements ApplicationListener {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
         spriteBatch.draw(bgTexture, 0, 0, WorldWidth, worldHeight);
-        bucketSprite.draw(spriteBatch)
+        bucketSprite.draw(spriteBatch);
+            
         spriteBatch.end();
     }
     
