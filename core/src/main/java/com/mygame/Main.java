@@ -4,11 +4,11 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;        // ← Ось тут виправлення!
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Sprite;
 
 public class Main implements ApplicationListener {
     Texture bgTexture;
@@ -61,7 +61,7 @@ public class Main implements ApplicationListener {
 
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-        spriteBatch.draw(bgTexture, 0, 0, worldWidth, worldHeight); // ✅ виправлено!
+        spriteBatch.draw(bgTexture, 0, 0, worldWidth, worldHeight);
         bucketSprite.draw(spriteBatch);
             
         spriteBatch.end();
@@ -82,4 +82,4 @@ public class Main implements ApplicationListener {
         music.dispose();
         spriteBatch.dispose();
     }
-    }
+}
