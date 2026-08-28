@@ -7,7 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
-public class Main implements ApplicationList {
+public class Main implements ApplicationListener {
     Texture bgTexture;
     Texture bucketTexture;
     Texture dropTexture;
