@@ -2,11 +2,9 @@ package com.mygame;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -27,13 +25,13 @@ public class Main implements ApplicationListener {
     public void create() {
         bgTexture = new Texture("textures/bgTexture.png");
         bucketTexture = new Texture("textures/bucketTexture.png");
-        dropTexture = new Texture("textures/dropTexture.png"); // додайте .png
+        dropTexture = new Texture("textures/dropTexture.png");
         dropSound = Gdx.audio.newSound(Gdx.files.internal("sound/dropSound.mp3"));
         music = Gdx.audio.newMusic(Gdx.files.internal("music/music.mp3"));
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(8, 5);
-        music.play(); // якщо хочете одразу запустити музику
-        bucketSprite = new Sprite (bucketTexture);
+        music.play();
+        bucketSprite = new Sprite(bucketTexture);
         bucketSprite.setSize(1, 1);
     }
     
@@ -63,7 +61,7 @@ public class Main implements ApplicationListener {
 
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-        spriteBatch.draw(bgTexture, 0, 0, worldWidth, worldHeight);
+        spriteBatch.draw(bgTexture, 0, 0, worldWidth, worldHeight); // ✅ виправлено!
         bucketSprite.draw(spriteBatch);
             
         spriteBatch.end();
@@ -76,5 +74,12 @@ public class Main implements ApplicationListener {
     public void resume() {}
     
     @Override
-    public void dispose() {}
-}
+    public void dispose() {
+        bgTexture.dispose();
+        bucketTexture.dispose();
+        dropTexture.dispose();
+        dropSound.dispose();
+        music.dispose();
+        spriteBatch.dispose();
+    }
+    }
