@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Sprite;
 
 public class Main implements ApplicationListener {
     Texture bgTexture;
@@ -17,6 +18,7 @@ public class Main implements ApplicationListener {
     Texture dropTexture;
     Sound dropSound;
     Music music;
+    Sprite bucketSprite;
     
     SpriteBatch spriteBatch;
     FitViewport viewport;
@@ -31,6 +33,8 @@ public class Main implements ApplicationListener {
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(8, 5);
         music.play(); // якщо хочете одразу запустити музику
+        bucketSprite = new Sprite (bucketTexture);
+        bucketSprite.setSize(1, 1);
     }
     
     @Override
@@ -56,7 +60,11 @@ public class Main implements ApplicationListener {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
-        spriteBatch.draw(bucketTexture, 0, 0, 1, 1);
+
+        float worldWidth = viewport.getWorldWidth();
+        float worldHeight = viewport.getWorldHeight();
+        spriteBatch.draw(bgTexture, 0, 0, WorldWidth, worldHeight);
+        bucketSprite.draw(spriteBatch)
         spriteBatch.end();
     }
     
@@ -67,12 +75,5 @@ public class Main implements ApplicationListener {
     public void resume() {}
     
     @Override
-    public void dispose() {
-        bgTexture.dispose();
-        bucketTexture.dispose();
-        dropTexture.dispose();
-        dropSound.dispose();
-        music.dispose();
-        spriteBatch.dispose();
-    }
-    }
+    public void dispose() {}
+}
