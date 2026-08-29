@@ -35,7 +35,7 @@ public class Main implements ApplicationListener {
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(8, 5);
         music.play(); // якщо хочете одразу запустити музику
-        bucketSprite = new Sprite (bucketTexture);
+        bucketSprite = new Sprite(bucketTexture);
         bucketSprite.setSize(1, 1);
         touchPos = new Vector2();
     }
@@ -75,7 +75,7 @@ public class Main implements ApplicationListener {
 
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-        spriteBatch.draw(bgTexture, 0, 0, WorldWidth, worldHeight);
+        spriteBatch.draw(bgTexture, 0, 0, worldWidth, worldHeight);
         bucketSprite.draw(spriteBatch);
         spriteBatch.end();
     }
