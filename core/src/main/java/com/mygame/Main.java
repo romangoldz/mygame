@@ -1,4 +1,4 @@
-package com.mygame
+package com.mygame;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
