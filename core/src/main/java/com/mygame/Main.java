@@ -15,6 +15,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+
 
 public class Main implements ApplicationListener {
     Texture backgroundTexture;
@@ -30,6 +34,7 @@ public class Main implements ApplicationListener {
     float dropTimer;
     Rectangle bucketRectangle;
     Rectangle dropRectangle;
+    FreeTypeFontGenerator generator;
 
     @Override
     public void create() {
@@ -49,6 +54,12 @@ public class Main implements ApplicationListener {
         music.setLooping(true);
         music.setVolume(.5f);
         music.play();
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PlayfairDisplay-Regular.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 32;
+        parameter.color = Color.WHITE;
+        font = generator.generateFont(parameter);
+        generator.dispose();        
     }
 
     @Override
@@ -118,7 +129,7 @@ public class Main implements ApplicationListener {
         viewport.apply();
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
-
+        font.draw(batch, "Привет", 100, 100);
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
 
@@ -157,6 +168,6 @@ public class Main implements ApplicationListener {
 
     @Override
     public void dispose() {
-        
+        font.dispose();
     }
 }
