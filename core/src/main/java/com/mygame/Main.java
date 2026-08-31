@@ -55,7 +55,7 @@ public class Main implements ApplicationListener {
         music.setVolume(.5f);
         music.play();
         generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PlayfairDisplay-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter = new parameter FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 32;
         parameter.color = Color.WHITE;
         font = generator.generateFont(parameter);
