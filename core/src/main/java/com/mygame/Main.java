@@ -35,6 +35,9 @@ public class Main implements ApplicationListener {
     Rectangle bucketRectangle;
     Rectangle dropRectangle;
     FreeTypeFontGenerator generator;
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private FreeTypeFontGenerator generator;
 
     @Override
     public void create() {
