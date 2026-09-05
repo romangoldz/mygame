@@ -2,11 +2,15 @@ package com.mygame.logic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.game.model.*;
-import com.game.logic.events.*;
+import com.game.model.Country;
+import com.game.model.GameMap;
+import com.game.logic.ai.AIStrategy;
+import com.game.logic.events.TurnEvent;
+import com.game.logic.events.TurnEventListener;
 
 public class GameTurnManager {
     private GameMap gameMap;
+    private AIStrategy aiStrategy;
     private int currentTurn = 0;
     private boolean isProcessingTurn = false;
     private Array<TurnEventListener> listeners = new Array<>();
@@ -14,40 +18,37 @@ public class GameTurnManager {
     
     public GameTurnManager(GameMap gameMap) {
         this.gameMap = gameMap;
+        this.aiStrategy = new AIStrategy(gameMap);
     }
     
     public void update(float delta) {
-        // Проверка нажатия кнопки "Следующий ход"
-        // или автоматический переход
+        // Автоматический переход хода каждые 5 секунд для демонстрации
         if (!isProcessingTurn) {
             startTurn();
         }
     }
     
-    private void startTurn() {
+    public void startTurn() {
+        if (isProcessingTurn) return;
+        
         isProcessingTurn = true;
         currentTurn++;
         
-        // Уведомляем слушателей о начале хода
         notifyListeners(new TurnEvent(TurnEvent.Type.START, currentTurn));
         
         // Запускаем AI в отдельном потоке
         aiThread = new Thread(() -> {
             try {
-                // Вычисление AI (имитация)
-                Thread.sleep(100); // Имитация работы AI
-                
-                // Обновление провинций
-                for (Province province : gameMap.getProvinces().values()) {
-                    // Рост населения
-                    int growth = (int)(province.getPopulation() * 0.01f);
-                    province.setPopulation(province.getPopulation() + growth);
-                    
-                    // Рост экономики
-                    province.setEconomy(province.getEconomy() + 5);
+                // AI для всех стран, кроме игрока
+                for (Country country : gameMap.getCountries()) {
+                    if (!country.isPlayerControlled()) {
+                        aiStrategy.processTurn(country);
+                    }
                 }
                 
-                // Уведомляем о завершении хода
+                // Имитация работы AI
+                Thread.sleep(200);
+                
                 Gdx.app.postRunnable(() -> {
                     notifyListeners(new TurnEvent(TurnEvent.Type.END, currentTurn));
                     isProcessingTurn = false;
