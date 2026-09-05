@@ -1,4 +1,4 @@
-package com.game.rendering;
+package com.mygame.rendering;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
