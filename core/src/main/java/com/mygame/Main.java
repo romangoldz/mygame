@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class main implements ApplicationListener{
+public class Main implements ApplicationListener{
     private SpriteBatch batch;
     private Texture MyImage;
     @Override
