@@ -11,17 +11,11 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class Main implements ApplicationListener{
-    private SpriteBatch batch;
-    private Texture MyImage;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     @Override
     public void create() {
-        batch = new SpriteBatch();
-        
-        MyImage = new Texture("image.png");
-        
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         
@@ -60,7 +54,6 @@ public class Main implements ApplicationListener{
     
     @Override
     public void dispose() {
-        MyImage.dispose();
         map.dispose();
         renderer.dispose();
         
