@@ -59,7 +59,7 @@ public class Main extends ApplicationAdapter {
         camera.setToOrtho(false, 30, 30 * (h / w));
         
         map = new TmxMapLoader().load("map.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1f / 64f);
+        renderer = new OrthogonalTiledMapRenderer(map, 1f / 16f);
         
     }
     
@@ -92,6 +92,5 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         map.dispose();
         renderer.dispose();
-        
     }
 }
