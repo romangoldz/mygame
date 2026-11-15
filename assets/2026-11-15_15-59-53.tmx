@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><map version="1.10" tiledversion="1.9.1" orientation="orthogonal" renderorder="right-down" width="16" height="16" tilewidth="1" tileheight="1" nextlayerid="2" nextobjectid="1"><properties><property name="type" value="Pixel Editor" /><property name="palette_count" value="8" /></properties><tileset firstgid="1" name="Swatch" columns="17" tilecount="289" tileheight="1" tilewidth="1"><image source="swatch.png" width="17" height="17" /></tileset><tileset firstgid="290" name="Palette" columns="8" tilecount="8" tileheight="1" tilewidth="1"><properties><property name="embedded_png">
+iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAHUlEQVR4nGNhYGD4DwQMDIyMQBaQ
+YgABCANIMgAAj1oHAggunXYAAAAASUVORK5CYII=
+
+</property></properties><image source="basic_swatch.png" width="8" height="1" /></tileset><layer id="1" name="Pixel art" width="16" height="16"><data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data></layer></map>
