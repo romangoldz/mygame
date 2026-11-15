@@ -23,6 +23,14 @@ public class Main extends ApplicationAdapter {
 
         map = new TmxMapLoader().load("map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1f / 16f);
+
+        float mapW = map.getProperties().get("width", Integer.class)
+            * map.getProperties().get("tilewidth", Integer.class) / 16f;
+        float mapH = map.getProperties().get("height", Integer.class)
+            * map.getProperties().get("tileheight", Integer.class) / 16f;
+
+        camera.position.set(mapW / 2f, mapH / 2f, 0);
+camera.update();
     }
 
     @Override
