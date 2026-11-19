@@ -1,15 +1,25 @@
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-core'
-
-dependencies {
-  api "com.badlogicgames.gdx:gdx:$gdxVersion"
-  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-
-  if(enableGraalNative == 'true') {
-    implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
-  }
+    kotlin("jvm")
 }
 
-jar {
-  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+val gdxVersion: String by rootProject.extra
+val kotlinVersion: String by rootProject.extra
+val enableGraalNative: String? by project
+val graalHelperVersion: String? by project
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
+dependencies {
+    api("com.badlogicgames.gdx:gdx:$gdxVersion")
+    api("com.badlogicgames.gdx:gdx-freetype:$gdxVersion")
+    api("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    
+    if (enableGraalNative == "true") {
+        implementation("io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion")
+    }
+}
+
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
