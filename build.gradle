@@ -1,70 +1,83 @@
-buildscript {
-  repositories {
-    mavenCentral()
-    gradlePluginPortal()
-    mavenLocal()
-    google()
-    maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
-  }
-  dependencies {
-    classpath "com.android.tools.build:gradle:8.9.3"
+import org.gradle.api.tasks.compile.JavaCompile
 
-  }
+buildscript {
+    val kotlinVersion: String by extra("1.9.20")
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        mavenLocal()
+        google()
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
+    }
+    
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.2.2") // Проверь версию, 8.9.3 может быть еще не в стабиле
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    }
 }
 
 allprojects {
-  apply plugin: 'eclipse'
-  apply plugin: 'idea'
+    apply(plugin = "eclipse")
+    apply(plugin = "idea")
 
-  // This allows you to "Build and run using IntelliJ IDEA", an option in IDEA's Settings.
-  idea {
-    module {
-      outputDir = file('build/classes/java/main')
-      testOutputDir = file('build/classes/java/test')
+    // Настройка IDEA для корректного вывода классов
+    extensions.configure<org.gradle.plugins.ide.idea.model.IdeaModel> {
+        module {
+            outputDir = file("build/classes/java/main")
+            testOutputDir = file("build/classes/java/test")
+        }
     }
-  }
 }
 
-configure(subprojects - project(':android')) {
-  apply plugin: 'java-library'
-  java.sourceCompatibility = 8
-  java.targetCompatibility = 8
-
-  // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
-  // The article can be helpful when using assets.txt in your project.
-  tasks.register('generateAssetList') {
-    inputs.dir("${project.rootDir}/assets/")
-    // projectFolder/assets
-    File assetsFolder = new File("${project.rootDir}/assets/")
-    // projectFolder/assets/assets.txt
-    File assetsFile = new File(assetsFolder, "assets.txt")
-    // delete that file in case we've already created it
-    assetsFile.delete()
-
-    // iterate through all files inside that folder
-    // convert it to a relative path
-    // and append it to the file assets.txt
-    fileTree(assetsFolder).collect { assetsFolder.relativePath(it) }.sort().each {
-      assetsFile.append(it + "\n")
-    }
-  }
-  processResources.dependsOn 'generateAssetList'
-
-  compileJava {
-    options.incremental = true
-  }
-}
+val projectVersion: String by extra("1.0.0") // Убедись, что версия определена
 
 subprojects {
-  version = "$projectVersion"
-  ext.appName = 'My game'
-  repositories {
-    mavenCentral()
-    // You may want to remove the following line if you have errors downloading dependencies.
-    mavenLocal()
-    maven { url = 'https://central.sonatype.com/repository/maven-snapshots/' }
-    maven { url = 'https://jitpack.io' }
-  }
+    version = projectVersion
+    extra.set("appName", "My game")
+    
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven { url = uri("https://central.sonatype.com/repository/maven-snapshots/") }
+        maven { url = uri("https://jitpack.io") }
+    }
 }
 
-eclipse.project.name = 'My game' + '-parent'
+// Конфигурация для всех подпроектов, кроме android
+configure(subprojects.filter { it.name != "android" }) {
+    apply(plugin = "java-library")
+    
+    extensions.configure<JavaPluginExtension> {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    tasks.register("generateAssetList") {
+        val assetsFolder = file("${project.rootDir}/assets/")
+        val assetsFile = file("${assetsFolder}/assets.txt")
+
+        inputs.dir(assetsFolder)
+        outputs.file(assetsFile)
+
+        doLast {
+            assetsFile.delete()
+            val files = fileTree(assetsFolder).map { assetsFolder.relativeTo(it).path }.sorted()
+            assetsFile.writeText(files.joinToString("\n") + "\n")
+        }
+    }
+
+    tasks.named("processResources") {
+        dependsOn("generateAssetList")
+    }
+
+    tasks.withType<JavaCompile> {
+        options.isIncremental = true
+    }
+}
+
+eclipse {
+    project {
+        name = "My game-parent"
+    }
+}
