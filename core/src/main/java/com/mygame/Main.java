@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 
 public class Main extends ApplicationAdapter {
     private TiledMap map;
