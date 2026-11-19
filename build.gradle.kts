@@ -1,7 +1,12 @@
-import org.gradle.api.tasks.compile.JavaCompile
+// 1. Подключаем плагины IDE в самом начале, чтобы блок eclipse { } заработал
+plugins {
+    id("eclipse")
+    id("idea")
+}
 
 buildscript {
-    val kotlinVersion: String by extra("1.9.20")
+    // Версию лучше задать как обычную переменную
+    val kotlinVersion = "1.9.20" 
 
     repositories {
         mavenCentral()
@@ -12,16 +17,21 @@ buildscript {
     }
     
     dependencies {
-        classpath("com.android.tools.build:gradle:8.2.2") // Проверь версию, 8.9.3 может быть еще не в стабиле
+        classpath("com.android.tools.build:gradle:8.2.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
+
+// 2. Исправляем синтаксис extra (теперь через set)
+val projectVersion = "1.0.0"
+extra.set("projectVersion", projectVersion)
+extra.set("gdxVersion", "1.12.1") // Укажи свою версию gdx
 
 allprojects {
     apply(plugin = "eclipse")
     apply(plugin = "idea")
 
-    // Настройка IDEA для корректного вывода классов
+    // Настройка IDEA
     extensions.configure<org.gradle.plugins.ide.idea.model.IdeaModel> {
         module {
             outputDir = file("build/classes/java/main")
@@ -29,8 +39,6 @@ allprojects {
         }
     }
 }
-
-val projectVersion: String by extra("1.0.0") // Убедись, что версия определена
 
 subprojects {
     version = projectVersion
@@ -44,10 +52,11 @@ subprojects {
     }
 }
 
-// Конфигурация для всех подпроектов, кроме android
+// 3. Конфигурация всех проектов кроме android
 configure(subprojects.filter { it.name != "android" }) {
     apply(plugin = "java-library")
     
+    // Правильный способ задать совместимость Java
     extensions.configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,9 +70,11 @@ configure(subprojects.filter { it.name != "android" }) {
         outputs.file(assetsFile)
 
         doLast {
-            assetsFile.delete()
-            val files = fileTree(assetsFolder).map { assetsFolder.relativeTo(it).path }.sorted()
-            assetsFile.writeText(files.joinToString("\n") + "\n")
+            if (assetsFolder.exists()) {
+                assetsFile.delete()
+                val files = fileTree(assetsFolder).map { assetsFolder.relativeTo(it).path }.sorted()
+                assetsFile.writeText(files.joinToString("\n") + "\n")
+            }
         }
     }
 
@@ -76,6 +87,7 @@ configure(subprojects.filter { it.name != "android" }) {
     }
 }
 
+// 4. Теперь блок eclipse работает корректно
 eclipse {
     project {
         name = "My game-parent"
